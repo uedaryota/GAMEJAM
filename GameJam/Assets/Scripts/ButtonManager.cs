@@ -4,26 +4,19 @@ using UnityEngine;
 
 public class ButtonManager : MonoBehaviour
 {
-    GameObject scenetransition;
-    SceneTransition scene;
-    private void Start()
-    {
-        scenetransition = GameObject.Find("SceneTransition");
-        scene = scenetransition.GetComponent<SceneTransition>();
-    }
     public void OnClickStartButton()
     {
         if(name == "StartButton")
         {
-            scene.GameSceneTransition();
+            SceneTransition.GameSceneTransition();
         }
         if(name == "TitleButton")
         {
-            scene.TitleSceneTransition();
+            SceneTransition.TitleSceneTransition();
         }
         if(name == "GameEndButton")
         {
-            scene.Quit();
+            SceneTransition.Quit();
         }
     }
 }

@@ -5,19 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition : MonoBehaviour
 {
-    public void TitleSceneTransition()
+    public static void TitleSceneTransition()
     {
         SceneManager.LoadScene("TitleScene");
     }
-    public void GameSceneTransition()
+    public static void GameSceneTransition()
     {
         SceneManager.LoadScene("GameScene");
     }
-    public void ResultTransition()
+    public static void ResultTransition()
     {
         SceneManager.LoadScene("ResultScene");
     }
-    public void Quit()
+    public static void Quit()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
