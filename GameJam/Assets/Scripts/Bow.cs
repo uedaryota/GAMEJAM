@@ -6,10 +6,10 @@ namespace Assets.Scripts
 {
     public class Bow : Wood
     {
-        private float rotateSpeed = 20;
+        private float rotateSpeed = 30;
 
         // 矢の管理をする
-        private List<Arrow> arrows = new List<Arrow>();
+        private Arrow arrow;
 
         private bool shotFlag = false;
         public bool ShotFlag { get => shotFlag; set => shotFlag = value; }
@@ -23,9 +23,15 @@ namespace Assets.Scripts
 
         protected override void AppendUpdate()
         {
-            foreach (var a in arrows)
+            if (arrow != null)
             {
-                a.Update();
+                arrow.Update();
+                CheckScreen();
+                if (arrow.DeadFlag)
+                {
+                    arrow = null;
+                    shotFlag = true;
+                }
             }
             CheckInput();
         }
@@ -60,10 +66,36 @@ namespace Assets.Scripts
 
         private void Shot()
         {
-            arrows.Add(new Arrow(Model.transform.position));
-            arrows[arrows.Count - 1].Initialize();
-            arrows[arrows.Count - 1].Model.transform.rotation = Model.transform.rotation;
-            shotFlag = true;
+            if (arrow != null)
+                return;
+            arrow = new Arrow(Model.transform.position);
+            arrow.Initialize();
+            arrow.Model.transform.rotation = Model.transform.rotation;
+        }
+
+        private void CheckScreen()
+        {
+            if (arrow.Model.transform.position.z >= 5)
+            {
+                arrow.DeadFlag = true;
+                return;
+            }
+            if(arrow.Model.transform.position.x <= -5)
+            {
+                arrow.DeadFlag = true;
+                return;
+            }
+            if(arrow.Model.transform.position.x >= 5)
+            {
+                arrow.DeadFlag = true;
+                return;
+            }
+            if(arrow.Model.transform.position.z <= -2)
+            {
+                arrow.DeadFlag = true;
+                return;
+            }
+            
         }
     }
 }

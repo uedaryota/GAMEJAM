@@ -23,5 +23,7 @@ namespace Assets.Scripts
         {
             Model.transform.position += Model.transform.forward * moveSpeed * Time.deltaTime;
         }
+
+
     }
 }

@@ -12,13 +12,14 @@ public class GameScene : MonoBehaviour
     private Bow bow;
     // 撃てる矢の最大数
     private int maxArrowNum = 5;
-    
+    private int arrowNum = 1;
+
     // Start is called before the first frame update
     void Start()
     {
         bow = new Bow(Vector3.up);
         bow.Initialize();
-
+        arrowNum = maxArrowNum;
     }
 
     // Update is called once per frame
@@ -31,14 +32,14 @@ public class GameScene : MonoBehaviour
 
     private void bowCheck()
     {
-        //if (arrowNum <= 0)
-        //{
-        //    SceneTransition.ResultTransition();
-        //}
-        //if (bow.ShotFlag)
-        //{
-        //    arrowNum--;
-        //    bow.ShotFlag = false;
-        //}
+        if (arrowNum <= 0)
+        {
+            SceneTransition.ResultTransition();
+        }
+        if (bow.ShotFlag)
+        {
+            arrowNum--;
+            bow.ShotFlag = false;
+        }
     }
 }
