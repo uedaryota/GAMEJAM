@@ -14,8 +14,24 @@ public class CheckHit : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collider col)
+    void OnTriggerEnter(Collider col)
     {
-        hitFlag = true;
+        if(transform.tag == "Target")
+        {
+            if(col.transform.tag == "Arrow")
+            {
+                hitFlag = true;
+                return;
+            }
+        }
+        if (transform.tag == "Arrow")
+        {
+            if (col.tag == "Target")
+            {
+                hitFlag = true;
+                return;
+            }
+        }
+        
     }
 }
