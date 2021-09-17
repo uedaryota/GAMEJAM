@@ -16,6 +16,7 @@ namespace Assets.Scripts
         protected override void AppendUpdate()
         {
             Move();
+            DirChange();
             base.AppendUpdate();
         }
 
@@ -24,6 +25,16 @@ namespace Assets.Scripts
             Model.transform.position += Model.transform.forward * moveSpeed * Time.deltaTime;
         }
 
+        private void DirChange()
+        {
+            if (Model == null)
+                return;
+            if(Model.transform.GetComponent<CheckHit>().HitFlag)
+            {
+                Model.transform.eulerAngles += new Vector3(0, Random.Range(-180, 180), 0);
+                Model.transform.GetComponent<CheckHit>().HitFlag = false;
+            }
+        }
 
     }
 }

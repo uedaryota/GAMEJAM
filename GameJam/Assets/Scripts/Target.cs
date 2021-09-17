@@ -19,9 +19,10 @@ namespace Assets.Scripts
 
         private void Hit()
         {
-            if(Model.GetComponent<Checkhit>().HitFlag == true)
+            if (Model == null)
+                return;
+            if(Model.transform.GetComponent<CheckHit>().HitFlag)
             {
-
                 DeadFlag = true;
             }
         }
