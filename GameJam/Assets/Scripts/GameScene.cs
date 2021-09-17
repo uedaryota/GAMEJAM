@@ -10,33 +10,36 @@ public class GameScene : MonoBehaviour
 
     // 弓
     private Bow bow;
-
-    // 矢の管理をする
-    private List<Arrow> arrows = new List<Arrow>();
+    // 撃てる矢の最大数
+    private int maxArrowNum = 5;
+    private int arrowNum = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-        bow = new Bow();
-        bow.Create(Vector3.up);
+        bow = new Bow(Vector3.up);
         bow.Initialize();
-
-        arrows.Add(new Arrow());
-        foreach (var a in arrows)
-        {
-            a.Create(Vector3.up);
-            a.Initialize();
-        }
+        arrowNum = maxArrowNum;
     }
 
     // Update is called once per frame
     void Update()
     {
         bow.Update();
+        bowCheck();
+        
+    }
 
-        foreach (var a in arrows)
+    private void bowCheck()
+    {
+        if (arrowNum <= 0)
         {
-            a.Update();
+            SceneTransition.ResultTransition();
+        }
+        if (bow.ShotFlag)
+        {
+            arrowNum--;
+            bow.ShotFlag = false;
         }
     }
 }
