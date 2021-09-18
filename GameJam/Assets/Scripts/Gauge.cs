@@ -9,13 +9,13 @@ public class Gauge : MonoBehaviour
     bool plus;//plusに動く時はtrueになる
     float bowLife;//矢のライフ
     bool buttonPush;//ボタンを押しているとtrue
-    float bowPower;//矢の力
+    public float bowPower;//矢の力
     // Start is called before the first frame update
     void Start()
     {
         bowPower = 0;
         gauge.value = 0;
-        bowLife = 0.05f;
+        bowLife = 0.01f;
         plus = true;
         buttonPush = false;
     }
@@ -42,18 +42,16 @@ public class Gauge : MonoBehaviour
             {
                 plus = true;
             }
-            gauge.value = bowPower;
         }
         if(Input.GetKeyUp(KeyCode.Space))
         {
             buttonPush = false;
+            bowPower=gauge.value;
+        }
+        if(!buttonPush)
+        {
             gauge.value = 0;
         }
-    }
-
-    public float getBowLife(float i)
-    {
-        return bowLife + (i/100);
     }
     public float getBowPower()
     {
