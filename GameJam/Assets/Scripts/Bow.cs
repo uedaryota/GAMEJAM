@@ -13,10 +13,14 @@ namespace Assets.Scripts
 
         private float arrowPos = 0;
 
+        private int refNum = 1;
+
+        private bool canShotFlag = false;
+
         private bool shotFlag = false;
+        public bool CanShotFlag { get => canShotFlag; set => canShotFlag = value; }
         public bool ShotFlag { get => shotFlag; set => shotFlag = value; }
-
-
+        public int RefNum { get => refNum; set => refNum = value; }
 
         public Bow(Vector3 pos)
         {
@@ -31,7 +35,6 @@ namespace Assets.Scripts
             if (arrow != null)
             {
                 arrow.Update();
-                CheckScreen();
                 if (arrow.DeadFlag)
                 {
                     arrow = null;
@@ -42,7 +45,7 @@ namespace Assets.Scripts
             {
                 if (arrowPos >= 3)
                     arrowPos = 0;
-                arrowPos += Time.deltaTime*3;
+                arrowPos += Time.deltaTime * 3;
                 Model.transform.GetChild(1).position = Model.transform.forward * arrowPos;
             }
             CheckInput();
@@ -58,7 +61,7 @@ namespace Assets.Scripts
             {
                 Move("D");
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && canShotFlag)
             {
                 Shot();
             }
@@ -82,32 +85,10 @@ namespace Assets.Scripts
                 return;
             arrow = new Arrow(Model.transform.position);
             arrow.Initialize();
+            arrow.ReflectNum = refNum;
             arrow.Model.transform.rotation = Model.transform.rotation;
         }
 
-        private void CheckScreen()
-        {
-            if (arrow.Model.transform.position.z >= 5)
-            {
-                arrow.DeadFlag = true;
-                return;
-            }
-            if (arrow.Model.transform.position.x <= -5)
-            {
-                arrow.DeadFlag = true;
-                return;
-            }
-            if (arrow.Model.transform.position.x >= 5)
-            {
-                arrow.DeadFlag = true;
-                return;
-            }
-            if (arrow.Model.transform.position.z <= -2)
-            {
-                arrow.DeadFlag = true;
-                return;
-            }
-
-        }
+        
     }
 }

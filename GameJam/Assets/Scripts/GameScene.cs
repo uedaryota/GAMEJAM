@@ -10,6 +10,14 @@ public class GameScene : MonoBehaviour
     private GameObject Stage = null;
     [SerializeField]
     private Text text = null;
+    [SerializeField]
+    private Slider slider = null;
+    [SerializeField]
+    private Text ui = null;
+    private float uiNum = 1;
+    private int vanishFlag = 1;
+
+    private bool canShotFlag = false;
 
     // 弓
     private Bow bow;
@@ -22,22 +30,29 @@ public class GameScene : MonoBehaviour
 
     private List<Vector2> targetPos = new List<Vector2>();
 
+    private int plusMinus = 1;
+
     // Start is called before the first frame update
     void Start()
     {
         text.transform.gameObject.SetActive(true);
 
-        bow = new Bow(new Vector3(0,0,-0.5f));
+        bow = new Bow(new Vector3(0, 0, -0.5f));
         bow.Initialize();
         arrowNum = maxArrowNum;
 
         MakeRandomPos();
-        
+
         for (int i = 0; i < maxTargetNum; i++)
         {
             targets.Add(new Target(new Vector3(targetPos[i].x, 0, targetPos[i].y)));
             targets[i].Initialize();
         }
+
+        ui.transform.gameObject.SetActive(true);
+        slider.transform.gameObject.SetActive(true);
+        slider.value = 0;
+
     }
 
     // Update is called once per frame
@@ -51,6 +66,9 @@ public class GameScene : MonoBehaviour
             t.Update();
 
         TargetCheck();
+        if (Input.GetKeyDown(KeyCode.Space))
+            canShotFlag = true;
+        CheckUI(canShotFlag);
     }
 
     private void bowCheck()
@@ -63,6 +81,7 @@ public class GameScene : MonoBehaviour
         {
             arrowNum--;
             bow.ShotFlag = false;
+            canShotFlag = false;
         }
     }
 
@@ -87,6 +106,44 @@ public class GameScene : MonoBehaviour
 
             targetPos.Add(pos);
         }
+    }
+
+    private int GaugeUpdate(in bool flag)
+    {
+        if (slider.value <= 0)
+            plusMinus = 1;
+        if (slider.value >= 10)
+            plusMinus = -1;
+        if (!flag)
+        {
+            slider.value += plusMinus * Time.deltaTime / arrowNum * 100;
+            return 1;
+        }
+        if (slider.value < 4)
+            return 1;
+        if (slider.value > 6)
+            return 1;
+        return 5;
+    }
+
+    private void CheckUI(in bool uiFlag)
+    {
+        bow.CanShotFlag = uiFlag;
+        int x = GaugeUpdate(uiFlag);
+        if (!uiFlag)
+        {
+            ui.text = "タイミング良く止めてね！";
+            ui.color = new Color(1, 0.75f, 0.3f, uiNum);
+            if (uiNum <= 0)
+                vanishFlag = 1;
+            if (uiNum >= 1)
+                vanishFlag = -1;
+            uiNum += Time.deltaTime * vanishFlag;
+            return;
+        }
+        ui.text = "SPACEで撃て！";
+        ui.color = new Color(1, 0.75f, 0.3f, 1);
+        bow.RefNum = x;
     }
 
 }
