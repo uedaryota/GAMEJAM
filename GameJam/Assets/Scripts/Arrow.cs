@@ -5,11 +5,13 @@ namespace Assets.Scripts
 {
     public class Arrow : Wood
     {
-        private float moveSpeed = 4;
+        private float moveSpeed = 8;
         private int reflectNum = 1;
         private bool canDeadFlag = false;
+        private int score = 0;
 
         public int ReflectNum { get => reflectNum; set => reflectNum = value; }
+        public int Score { get => score; }
 
         public Arrow(Vector3 pos)
         {
@@ -37,41 +39,41 @@ namespace Assets.Scripts
             if (Model.transform.GetComponent<CheckHit>().HitFlag)
             {
                 Model.transform.GetComponent<CheckHit>().HitFlag = false;
+                score += 300;
             }
         }
 
         private void CheckScreen()
         {
             canDeadFlag = reflectNum <= 0 ? true : false;
+            if (Model.transform.position.x >= 6)
+            {
+                Model.transform.eulerAngles = -Model.transform.eulerAngles;
+                reflectNum--;
+                DeadFlag = canDeadFlag ? true : false;
+                return;
+            }
+            if (Model.transform.position.x <= -6)
+            {
+                Model.transform.eulerAngles = -Model.transform.eulerAngles;
+                reflectNum--;
+                DeadFlag = canDeadFlag ? true : false;
+                return;
+            }
+            if (Model.transform.position.z <= -1)
+            {
+                Model.transform.eulerAngles = new Vector3(0, 180, 0) - Model.transform.eulerAngles;
+                reflectNum--;
+                DeadFlag = canDeadFlag ? true : false;
+                return;
+            }
             if (Model.transform.position.z >= 5)
             {
-                Model.transform.eulerAngles += new Vector3(0, 180, 0);
+                Model.transform.eulerAngles = new Vector3(0,180,0)-Model.transform.eulerAngles;
                 reflectNum--;
                 DeadFlag = canDeadFlag ? true : false;
                 return;
             }
-            if (Model.transform.position.x <= -5)
-            {
-                Model.transform.eulerAngles += new Vector3(0, 180, 0);
-                reflectNum--;
-                DeadFlag = canDeadFlag ? true : false;
-                return;
-            }
-            if (Model.transform.position.x >= 5)
-            {
-                Model.transform.eulerAngles += new Vector3(0,180, 0);
-                reflectNum--;
-                DeadFlag = canDeadFlag ? true : false;
-                return;
-            }
-            if (Model.transform.position.z <= -2)
-            {
-                Model.transform.eulerAngles += new Vector3(0, 180, 0);
-                reflectNum--;
-                DeadFlag = canDeadFlag ? true : false;
-                return;
-            }
-
         }
 
     }

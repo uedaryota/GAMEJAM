@@ -22,7 +22,7 @@ public class GameScene : MonoBehaviour
     // 弓
     private Bow bow;
     // 撃てる矢の最大数
-    private int maxArrowNum = 12;
+    private int maxArrowNum = 5;
     private int arrowNum = 1;
 
     private int maxTargetNum = 8;
@@ -123,7 +123,7 @@ public class GameScene : MonoBehaviour
             return 1;
         if (slider.value > 6)
             return 1;
-        return 5;
+        return 3;
     }
 
     private void CheckUI(in bool uiFlag)

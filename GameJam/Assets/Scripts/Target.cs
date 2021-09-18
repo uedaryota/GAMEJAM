@@ -35,6 +35,8 @@ namespace Assets.Scripts
         }
         private void Move()
         {
+            if (Model == null)
+                return;
             if (Model.transform.position.x >= 3.9f)
                 moveFlag = true;
             if (Model.transform.position.x <= -3.9f)

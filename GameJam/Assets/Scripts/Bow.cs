@@ -18,6 +18,9 @@ namespace Assets.Scripts
         private bool canShotFlag = false;
 
         private bool shotFlag = false;
+
+        // 弓が持っているスコアの合計
+        private int score = 0;
         public bool CanShotFlag { get => canShotFlag; set => canShotFlag = value; }
         public bool ShotFlag { get => shotFlag; set => shotFlag = value; }
         public int RefNum { get => refNum; set => refNum = value; }
@@ -37,6 +40,7 @@ namespace Assets.Scripts
                 arrow.Update();
                 if (arrow.DeadFlag)
                 {
+                    score += arrow.Score;
                     arrow = null;
                     shotFlag = true;
                 }
