@@ -27,7 +27,7 @@ public class GameScene : MonoBehaviour
     {
         text.transform.gameObject.SetActive(true);
 
-        bow = new Bow(Vector3.zero);
+        bow = new Bow(new Vector3(0,0,-0.5f));
         bow.Initialize();
         arrowNum = maxArrowNum;
 
@@ -81,7 +81,7 @@ public class GameScene : MonoBehaviour
     {
         while (targetPos.Count < maxTargetNum)
         {
-            Vector2 pos = new Vector2(Random.Range(-4, 4), Random.Range(0, 4));
+            Vector2 pos = new Vector2(Random.Range(-4, 4), Random.Range(1, 4));
             if (targetPos.Contains(pos))
                 continue;
 

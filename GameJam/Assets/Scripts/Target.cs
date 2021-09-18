@@ -15,6 +15,7 @@ namespace Assets.Scripts
         protected override void AppendInitialize()
         {
             moveFlag = false;
+            move = Time.deltaTime * (Random.Range(1, 3)*0.2f);
         }
         protected override void AppendUpdate()
         {
@@ -27,32 +28,21 @@ namespace Assets.Scripts
         {
             if (Model == null)
                 return;
-            if(Model.transform.GetComponent<CheckHit>().HitFlag)
+            if (Model.transform.GetComponent<CheckHit>().HitFlag)
             {
                 DeadFlag = true;
             }
         }
         private void Move()
         {
-            if(Model.transform.position.x>=3.9f)
-            {
+            if (Model.transform.position.x >= 3.9f)
                 moveFlag = true;
-                Debug.Log("aa");
-            }
-            
-            if(Model.transform.position.x<=-3.9f)
-            {
+            if (Model.transform.position.x <= -3.9f)
                 moveFlag = false;
-                Debug.Log("bb");
-            }
-            if(moveFlag == true)
-            {
+            if (moveFlag == true)
                 Model.transform.Translate(-move, 0, 0);
-            }
             if (moveFlag == false)
-            {
                 Model.transform.Translate(move, 0, 0);
-            }
         }
     }
 }
