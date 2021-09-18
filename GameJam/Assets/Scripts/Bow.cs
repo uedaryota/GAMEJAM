@@ -11,8 +11,12 @@ namespace Assets.Scripts
         // 矢の管理をする
         private Arrow arrow;
 
+        private float arrowPos = 0;
+
         private bool shotFlag = false;
         public bool ShotFlag { get => shotFlag; set => shotFlag = value; }
+
+
 
         public Bow(Vector3 pos)
         {
@@ -23,6 +27,7 @@ namespace Assets.Scripts
 
         protected override void AppendUpdate()
         {
+            Model.transform.GetChild(1).transform.gameObject.SetActive(arrow == null);
             if (arrow != null)
             {
                 arrow.Update();
@@ -32,6 +37,13 @@ namespace Assets.Scripts
                     arrow = null;
                     shotFlag = true;
                 }
+            }
+            else
+            {
+                if (arrowPos >= 3)
+                    arrowPos = 0;
+                arrowPos += Time.deltaTime*3;
+                Model.transform.GetChild(1).position = Model.transform.forward * arrowPos;
             }
             CheckInput();
         }
@@ -80,22 +92,22 @@ namespace Assets.Scripts
                 arrow.DeadFlag = true;
                 return;
             }
-            if(arrow.Model.transform.position.x <= -5)
+            if (arrow.Model.transform.position.x <= -5)
             {
                 arrow.DeadFlag = true;
                 return;
             }
-            if(arrow.Model.transform.position.x >= 5)
+            if (arrow.Model.transform.position.x >= 5)
             {
                 arrow.DeadFlag = true;
                 return;
             }
-            if(arrow.Model.transform.position.z <= -2)
+            if (arrow.Model.transform.position.z <= -2)
             {
                 arrow.DeadFlag = true;
                 return;
             }
-            
+
         }
     }
 }
