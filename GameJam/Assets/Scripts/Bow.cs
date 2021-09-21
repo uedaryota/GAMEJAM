@@ -20,7 +20,7 @@ namespace Assets.Scripts
         private bool shotFlag = false;
 
         // 弓が持っているスコアの合計
-        private int score = 0;
+        public int score = 0;
         public bool CanShotFlag { get => canShotFlag; set => canShotFlag = value; }
         public bool ShotFlag { get => shotFlag; set => shotFlag = value; }
         public int RefNum { get => refNum; set => refNum = value; }

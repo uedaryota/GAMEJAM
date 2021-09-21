@@ -14,9 +14,11 @@ public class GameScene : MonoBehaviour
     private Slider slider = null;
     [SerializeField]
     private Text ui = null;
+    [SerializeField]
+    private Text score = null;
     private float uiNum = 1;
     private int vanishFlag = 1;
-
+    public int scoreNum = 0;
     private bool canShotFlag = false;
 
     // 弓
@@ -52,7 +54,8 @@ public class GameScene : MonoBehaviour
         ui.transform.gameObject.SetActive(true);
         slider.transform.gameObject.SetActive(true);
         slider.value = 0;
-
+        score.transform.gameObject.SetActive(true);
+        scoreNum = 0;
     }
 
     // Update is called once per frame
@@ -83,6 +86,8 @@ public class GameScene : MonoBehaviour
             bow.ShotFlag = false;
             canShotFlag = false;
         }
+        scoreNum = bow.score;
+        score.text = "Score" + scoreNum;
     }
 
     private void TargetCheck()
@@ -145,5 +150,4 @@ public class GameScene : MonoBehaviour
         ui.color = new Color(1, 0.75f, 0.3f, 1);
         bow.RefNum = x;
     }
-
 }
