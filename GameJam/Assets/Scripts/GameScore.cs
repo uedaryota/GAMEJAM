@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameScore : MonoBehaviour
 {
     public GameScene GetGameScene;
     public GameObject GameScene;
     private int Score = 0;
+    private int ArrowScore = 0;
 
     private static GameScore instance;
     public static GameScore Instance
@@ -45,9 +47,16 @@ public class GameScore : MonoBehaviour
     private void Update()
     {
         if (GameScene != null)
-            Score = GetGameScene.scoreNum;
+        {
+            ArrowScore = GetGameScene.arrowNum * 500;
+            Score = GetGameScene.scoreNum + ArrowScore;
+        }
         else
-
         Debug.Log(Score);
+        if(SceneManager.GetActiveScene().name=="GameScene"&&GameScene==null)
+        {
+            GameScene = GameObject.Find("GameScene");
+            GetGameScene = GameScene.GetComponent<GameScene>();
+        }
     }
 }

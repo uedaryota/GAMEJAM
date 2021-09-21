@@ -25,7 +25,7 @@ public class GameScene : MonoBehaviour
     private Bow bow;
     // 撃てる矢の最大数
     private int maxArrowNum = 5;
-    private int arrowNum = 1;
+    public int arrowNum = 1;
 
     private int maxTargetNum = 8;
     private List<Target> targets = new List<Target>();
