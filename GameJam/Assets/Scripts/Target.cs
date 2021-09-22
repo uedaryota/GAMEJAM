@@ -15,8 +15,7 @@ namespace Assets.Scripts
         protected override void AppendInitialize()
         {
             moveFlag = false;
-            move = Time.deltaTime * (Random.Range(1, 3)*0.2f);
-            move = 0.01f;
+            move = Time.deltaTime * (Random.Range(0.1f, 1)*0.2f);        
             moveFlag = false;
         }
         protected override void AppendUpdate()
