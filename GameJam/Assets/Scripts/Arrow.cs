@@ -9,7 +9,7 @@ namespace Assets.Scripts
         private int reflectNum = 1;
         private bool canDeadFlag = false;
         private int score = 0;
-        private int addScore = 350;
+        private int addScore = 325;
 
         public int ReflectNum { get => reflectNum; set => reflectNum = value; }
         public int Score { get => score; }
