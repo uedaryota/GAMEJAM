@@ -9,7 +9,7 @@ public class GameScore : MonoBehaviour
 {
     public GameScene GetGameScene;
     public GameObject GameScene;
-    private int Score = 0;
+    public int Score = 0;
     private int ArrowScore = 0;
 
     private static GameScore instance;
@@ -51,8 +51,8 @@ public class GameScore : MonoBehaviour
             ArrowScore = GetGameScene.arrowNum * 500;
             Score = GetGameScene.scoreNum + ArrowScore;
         }
-        else
-        Debug.Log(Score);
+        //else
+        //Debug.Log(Score);
         if(SceneManager.GetActiveScene().name=="GameScene"&&GameScene==null)
         {
             GameScene = GameObject.Find("GameScene");
