@@ -9,7 +9,7 @@ namespace Assets.Scripts
         private int reflectNum = 1;
         private bool canDeadFlag = false;
         private int score = 0;
-        private int addScore = 300;
+        private int addScore = 350;
 
         public int ReflectNum { get => reflectNum; set => reflectNum = value; }
         public int Score { get => score; }
@@ -40,7 +40,7 @@ namespace Assets.Scripts
             if (Model.transform.GetComponent<CheckHit>().HitFlag)
             {
                 score += addScore;
-                addScore *= 2;
+                addScore *= 3;
                 Model.transform.GetComponent<CheckHit>().HitFlag = false;
             }
         }
