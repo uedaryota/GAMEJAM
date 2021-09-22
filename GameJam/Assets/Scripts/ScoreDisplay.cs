@@ -7,7 +7,7 @@ public class ScoreDisplay : MonoBehaviour
 {
     private GameScore gameScore;
     private GameObject GetGameScore;
-    public Text Rank1,Rank2,Rank3;
+    public Text Rank1,Rank2,Rank3,Result;
     private int score = 0;
     public int first, second, third;
     void Start()
@@ -20,7 +20,11 @@ public class ScoreDisplay : MonoBehaviour
     }
     public void Update()
     {
-
+        if(Input.GetKey(KeyCode.D)&& Input.GetKey(KeyCode.G))
+        {
+            //らんきんぐさくじょ
+            PlayerPrefs.DeleteAll();
+        }
     }
     private void SaveData()
     {
@@ -59,5 +63,6 @@ public class ScoreDisplay : MonoBehaviour
         Rank1.text = PlayerPrefs.GetString(first.ToString(),first.ToString());
         Rank2.text = PlayerPrefs.GetString(second.ToString(), second.ToString());
         Rank3.text = PlayerPrefs.GetString(third.ToString(), third.ToString());
+        Result.text = "今回のスコア:"+score.ToString();
     }
 }
